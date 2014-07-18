@@ -1,0 +1,8 @@
+#Vim files
+*.swp
+.*.swp
+#Executables
+*.o
+*.a
+*.exe
+*.dSYM
