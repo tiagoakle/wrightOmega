@@ -18,6 +18,7 @@
 
 //#define DEBUG
 #define pfloat double
+#define idxint long int
 #include "math.h"
 
 #ifdef DEBUG

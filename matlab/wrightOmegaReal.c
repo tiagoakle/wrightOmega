@@ -23,12 +23,26 @@
 /* THE mex-function */
 void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )  
 {  
-    pfloat w;
+    pfloat *w;
+    pfloat *z;
+    idxint m,n,i,j;
     if(nlhs>1) mexErrMsgTxt("Too many output arguments!");
     if(nrhs!=1) mexErrMsgTxt("Wrong number of input arguments!");
-    if((!mxIsDouble(prhs[0]))||(mxIsComplex(prhs[0]))) mexErrMsgTxt("Argument must be a real double");
-    w = mxGetScalar(prhs[0]);
-    if(w<1.0) mexErrMsgTxt("Argument z must be z>1 ");
-    plhs[0] = mxCreateDoubleScalar(wrightOmega(w));    
-
+    if((!mxIsDouble(prhs[0]))||(mxIsComplex(prhs[0]))) mexErrMsgTxt("Argument must be a real double matrix");
+    m = mxGetM(prhs[0]);
+    n = mxGetN(prhs[0]);
+    
+    plhs[0] = mxCreateDoubleMatrix(m,n,mxREAL);
+    w = mxGetPr(plhs[0]);
+    z = mxGetPr(prhs[0]);
+    
+    for(i=0;i<m;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+                (*w) = wrightOmega(*z);    
+                w++;
+                z++;
+        }
+    }
 }

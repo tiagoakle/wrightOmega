@@ -44,7 +44,6 @@ clean:
 
 # clean, and then remove compiled programs and library archives
 purge: clean
-	( cd external/ldl    ; $(MAKE) purge )
-	( cd external/amd    ; $(MAKE) purge )	
-	- $(RM) libecos.a runecos
+	$(RM) libOmega.a
+	$(RM) *.exe
 
