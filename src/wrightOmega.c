@@ -25,21 +25,7 @@ pfloat wrightOmega(pfloat z)
     pfloat r  = 0.0;
     pfloat q  = 0.0;
     pfloat zi = 0.0;
-   // if(z<-2.0)
-   // {
-   //     q = exp(z);
-   //     r = q;   //exp{z}
-   //     w = q;
-   //     q *= r; //exp{2z}
-   //     w -= q;
-   //     q *= r; //exp{3z} 
-   //     w += 3.0/2.0*q;
-   //     q *= r; //exp{4z}
-   //     w -= 8.0/3.0*q;
-   //     q *= r; //exp{5z}
-   //     w += 125.0/24.0*q; 
-   // }
-    else if(z<1.0+M_PI) //If z is between 0 and 1+pi
+    if(z<1.0+M_PI) //If z is between 0 and 1+pi
     {
         q = z-1;
         r = q;
@@ -82,15 +68,15 @@ pfloat wrightOmega(pfloat z)
     printf("First round residual %e \n",r);
 #endif
     //Check residual
-    //  if(r<1.e-16) return w; //XXX Just do two rounds
-    //r = z-w-log(w);
+  //  if(r<1.e-16) return w; //XXX Just do two rounds
     z = (1+w);
     q = z+2/3.0*r;
     w *= 1+r/z*(z*q-0.5*r)/(z*q-r);
-    //r = (2*w*w-8*w-1)/(72.0*(z*z*z*z*z*z))*r*r*r*r;
+    r = (2*w*w-8*w-1)/(72.0*(z*z*z*z*z*z))*r*r*r*r;
 #ifdef DEBUG
     printf("Second round residual %e \n",r);
 #endif
 
     return w;
 }
+
